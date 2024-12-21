@@ -11,17 +11,7 @@ def activate_and_run():
     venv_dir = os.path.join(project_dir, "venv")
 
     # Caminho para o executável Python dentro do ambiente virtual
-    if platform.system().lower() == "windows":
-        python_executable = os.path.join(venv_dir, "Scripts", "python.exe")
-    else:  # Linux ou macOS
-        python_executable = os.path.join(venv_dir, "bin", "python")
-
-    # Verifica se o ambiente virtual existe
-    if not os.path.exists(python_executable):
-        print(f"Erro: Ambiente virtual não encontrado em {venv_dir}")
-        print("Certifique-se de que o ambiente virtual foi criado corretamente.")
-        print("Você pode tentar rodar o comando: python -m venv venv se o venv não existir.")
-        sys.exit(1)
+    python_executable = os.path.join(venv_dir, "Scripts", "python.exe")
 
     # Caminho para o arquivo main.py
     main_script = os.path.join(project_dir, "main.py")
