@@ -1,4 +1,6 @@
-#!/Users/cassiano/Documents/jogo/venv/bin/python3.12
+#!/bin/sh
+'''exec' "/Users/cassiano/Documents/jogo massa/venv/bin/python3.12" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys
