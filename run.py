@@ -1,28 +1,38 @@
 import os
 import platform
 import subprocess
+import sys
 
 def activate_and_run():
-    # Detecta o sistema operacional
-    system = platform.system().lower()
+    # Diretório base do projeto (onde o run.py está localizado)
+    project_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # Determina o caminho para o executável Python dentro do ambiente virtual
-    if "windows" in system:
-        python_executable = os.path.join("venv", "Scripts", "python.exe")
+    # Caminho do ambiente virtual (assumindo que "venv" está na raiz do projeto)
+    venv_dir = os.path.join(project_dir, "venv")
+
+    # Caminho para o executável Python dentro do ambiente virtual
+    if platform.system().lower() == "windows":
+        python_executable = os.path.join(venv_dir, "Scripts", "python.exe")
     else:  # Linux ou macOS
-        python_executable = os.path.join("venv", "bin", "python")
+        python_executable = os.path.join(venv_dir, "bin", "python")
 
-    # Verifica se o executável Python do ambiente virtual existe
+    # Verifica se o ambiente virtual existe
     if not os.path.exists(python_executable):
-        print("Ambiente virtual não encontrado ou inválido.")
-        return
+        print(f"Erro: Ambiente virtual não encontrado em {venv_dir}")
+        print("Certifique-se de que o ambiente virtual foi criado corretamente.")
+        print("Você pode tentar rodar o comando: python -m venv venv se o venv não existir.")
+        sys.exit(1)
 
-    # Comando para executar o script main.py
-    command = [python_executable, "main.py"]
+    # Caminho para o arquivo main.py
+    main_script = os.path.join(project_dir, "main.py")
+    if not os.path.exists(main_script):
+        print(f"Erro: Arquivo main.py não encontrado no diretório do projeto ({project_dir}).")
+        sys.exit(1)
 
     try:
-        # Executa o comando
-        subprocess.run(command, check=True)
+        # Executa o script main.py usando o Python do ambiente virtual
+        print(f"Usando o Python do ambiente virtual: {python_executable}")
+        subprocess.run([python_executable, main_script], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Erro ao executar o script: {e}")
     except Exception as e:
