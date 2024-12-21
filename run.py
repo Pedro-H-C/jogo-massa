@@ -3,23 +3,26 @@ import platform
 import subprocess
 
 def activate_and_run():
-    # Descubra o sistema operacional
+    # Detecta o sistema operacional
     system = platform.system().lower()
 
-    # Determina o caminho para o Python dentro do ambiente virtual
+    # Determina o caminho para o executável Python dentro do ambiente virtual
     if "windows" in system:
         python_executable = os.path.join("venv", "Scripts", "python.exe")
     else:  # Linux ou macOS
         python_executable = os.path.join("venv", "bin", "python")
 
-    # Verifica se o executável do Python existe no ambiente virtual
+    # Verifica se o executável Python do ambiente virtual existe
     if not os.path.exists(python_executable):
         print("Ambiente virtual não encontrado ou inválido.")
         return
 
+    # Comando para executar o script main.py
+    command = [python_executable, "main.py"]
+
     try:
-        # Executa o script main.py usando o Python do ambiente virtual
-        subprocess.run([python_executable, "main.py"], check=True)
+        # Executa o comando
+        subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
         print(f"Erro ao executar o script: {e}")
     except Exception as e:
