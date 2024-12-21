@@ -22,7 +22,7 @@ def activate_and_run():
         print(f"Erro: Arquivo main.py não encontrado no diretório do projeto ({project_dir}).")
         sys.exit(1)
 
-    # Verifica se o executável Python existe
+    # Verifica se o executável Python exist
     if not os.path.exists(python_executable):
         print(f"Erro: Executável Python não encontrado no ambiente virtual ({python_executable}).")
         sys.exit(1)
